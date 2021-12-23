@@ -1,0 +1,6 @@
+.added-song-button:nth-child(2) {
+  display: none;
+}
+.added-song-button {
+  background-color: #a855f7;
+}
