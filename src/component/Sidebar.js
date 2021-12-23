@@ -22,7 +22,7 @@ function Sidebar() {
           <i className="bi bi-list p-6"></i>
         </div>
         <NavLink to='/'>
-          <span>myApp</span>
+          <span className="text-purple-900">Purple Dashboard</span>
         </NavLink>
       </div>
       <ul className="">
@@ -46,7 +46,7 @@ function Sidebar() {
         </li>
         <li className={`text-gray-600 h-16 hover:text-purple-500`}>
           <button className="flex items-center" type="submit" onClick={logoutHandle}>
-            <i className="bi bi-door-closed-fill p-6"></i>
+            <i className="bi bi-plug-fill p-6"></i>
             <span>Logout</span>
           </button>
         </li>

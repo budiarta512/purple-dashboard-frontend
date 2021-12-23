@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearState, fetchingUser, userSelector } from '../features/user/userSlice';
+import { clearState, fetchingUser, userSelector, logoutUser } from '../features/user/userSlice';
+import { useHistory } from 'react-router';
 
 function NavbarComponent() {
   const [open, setOpen] = useState(false);
@@ -17,6 +18,16 @@ function NavbarComponent() {
       console.log(errorMessage);
     }
   }, [isError]);
+
+  const history = useHistory();
+  const logoutHandle = (e) => {
+    dispatch(logoutUser({token: localStorage.getItem('token')}))
+      .then(res => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        history.go(0);
+      });
+  }
   return (
     <div className="flex w-full bg-white shadow-sm justify-between h-16 items-center">
       <div className="pl-2"><i className="bi bi-search pr-3"></i>Search</div>
@@ -31,7 +42,7 @@ function NavbarComponent() {
           <ul className="block w-full h-full">
             <li className="py-1 px-2 hover:bg-gray-200 cursor-pointer">{data.name}</li>
             <li className="py-1 px-2 hover:bg-gray-200 cursor-pointer">Setting</li>
-            <li className="py-1 px-2 hover:bg-gray-200 cursor-pointer">Logout</li>
+            <li onClick={logoutHandle} className="py-1 px-2 hover:bg-gray-200 cursor-pointer">Logout</li>
           </ul>
         </div>
         <div className="mx-4 py-4 my-auto">
