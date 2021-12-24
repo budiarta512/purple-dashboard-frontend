@@ -24,7 +24,7 @@
   },
   "scripts": {
     "start": "serve -s build",
-    "start-dev": "craco start",
+    "dev": "craco start",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
