@@ -36,7 +36,7 @@ const Login = () => {
     <div className="flex justify-center items-center h-screen bg-gradient-to-bl from-red-50 to-purple-100">
       <div className="bg-purple-100 py-4 px-8 shadow-md border-t-2 border-l-2 border-white">
         <div className="mb-8 flex justify-center">
-          <h1>Login to MyApp</h1>
+          <h1 className="text-purple-900">Purple Dashboard</h1>
         </div>
         {/* error message */}
         {message === 'Email atau password salah' && 

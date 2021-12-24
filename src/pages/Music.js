@@ -20,8 +20,8 @@ const Music = () => {
   const [loading, setLoading] = useState(false);
 
   // make url for spotify api
-  let client_id = '826fa8378de24c84a9e6c3736ca2b080';
-  let redirect_uri = 'http://localhost:3000/music';
+  let client_id = process.env.REACT_APP_CLIENT_ID;
+  let redirect_uri = process.env.REACT_APP_REDIRECT_URI;
   let scope = 'playlist-modify-private playlist-read-private streaming user-read-email user-read-private user-library-read user-read-playback-state user-modify-playback-state user-library-modify playlist-modify-public';
   let full_uri = 'https://accounts.spotify.com/authorize';
   full_uri += '?response_type=code';
@@ -37,7 +37,7 @@ const Music = () => {
 
   // spotify web api
   let spotifyApi = new SpotifyWebApi({
-    clientId: '826fa8378de24c84a9e6c3736ca2b080',
+    clientId: process.env.REACT_APP_CLIENT_ID,
   });
 
   // set token
