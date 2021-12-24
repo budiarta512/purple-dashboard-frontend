@@ -38,6 +38,11 @@ const Login = () => {
         <div className="mb-8 flex justify-center">
           <h1>Login to MyApp</h1>
         </div>
+        {/* error message */}
+        {message === 'Email atau password salah' && 
+        <div className="mb-4 w-full">
+          <div className="bg-red-400 text-white"><span className="py-1 px-2">Invalid email or password</span></div>
+        </div>}
         <div className="mb-4">
           <form>
             {/* email */}
