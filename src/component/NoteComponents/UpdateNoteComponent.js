@@ -1,11 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import { useSelector } from 'react-redux';
-import { userSelector } from '../features/user/userSlice';
+import { userSelector } from '../../features/user/userSlice';
 import { useHistory, withRouter } from 'react-router';
 import { Link, useParams } from 'react-router-dom';
-import api from '../utils/api';
-import Loader from './Loader';
-import GreenAlertComponent from './GreenAlertComponent';
+import api from '../../utils/api';
+import Loader from '../Loader';
 
 const UpdateNoteComponent = () => {
   
@@ -17,7 +16,6 @@ const UpdateNoteComponent = () => {
   const [response, setResponse] = useState();
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState('');
-  const [successMessage, setSuccessMessage] = useState('successMessage');
   const [spiner, setSpiner] = useState(false);
 
   const history = useHistory();
@@ -41,19 +39,12 @@ const UpdateNoteComponent = () => {
     setSpiner(true)
     api().put('/api/note/' + id, {title, category, body, user_id}, { headers: { Authorization: 'Bearer ' + localStorage.getItem('token')} })
       .then(res=> {
-        console.log(res);
-        setSuccessMessage(res.data.message)
         setSpiner(false);
         history.push('/note')
       })
       .catch(error => {
         setMessage(error.response.data.message)
       });
-  }
-  if(successMessage) {
-    setTimeout(() => {
-      setSuccessMessage('')
-    }, 3000)
   }
   return (
     loading ? <Loader /> :
@@ -62,9 +53,6 @@ const UpdateNoteComponent = () => {
         <div className="flex justify-end">
           <Link to='/note' className="mt-1 mr-1"><i className="bi bi-arrow-left-circle-fill text-2xl text-purple-700"></i></Link>
         </div>
-        {/* success alert */}
-        {successMessage && <GreenAlertComponent message={successMessage} />}
-
         <form className="p-2">
           {/* title */}
           <div className="mb-2">
@@ -89,12 +77,14 @@ const UpdateNoteComponent = () => {
           </div>
           {/* body */}
           <div className="mb-2">
-            <textarea name="body" id="body" rows="12" className="bg-indigo-200 w-full overflow-y-auto p-2 border-t-2 border-l-2 shadow-md border-gray-100 rounded-md focus:ring-2 ring-purple-400 outline-none opacity-70" placeholder="Write your note" defaultValue={response.body} onChange={(e)=> setBody(e.target.value)} ></textarea>
+            <textarea name="body" id="body" rows="12" className="bg-indigo-200 w-full overflow-y-auto p-2 border-t-2 border-l-2 shadow-md border-gray-100 rounded-md focus:ring-2 ring-purple-400 outline-none" placeholder="Write your note" defaultValue={response.body} onChange={(e)=> setBody(e.target.value)} ></textarea>
             {/* error handling */}
             {message.body && <span className="text-red-500 text-sm">{message.body[0]}</span>}
           </div>
           <div className="mb-1 flex justify-end">
-            <button type="button" className="mr-4 text-purple-700 font-medium">Cancel</button>
+            <Link to='/note'>
+              <button type="button" className="mr-4 text-purple-700 font-medium">Cancel</button>
+            </Link>
             <button type="button" className="bg-purple-500 text-white py-1 px-4 rounded-md hover:bg-purple-700 flex justify-center items-center" onClick={updateHandle}>{spiner && <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>}Edit</button>
           </div>
         </form>

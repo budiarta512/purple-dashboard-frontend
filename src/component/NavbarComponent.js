@@ -24,12 +24,11 @@ function NavbarComponent() {
     dispatch(logoutUser({token: localStorage.getItem('token')}))
       .then(res => {
         localStorage.removeItem('token');
-        localStorage.removeItem('user');
         history.go(0);
       });
   }
   return (
-    <div className="flex w-full bg-white shadow-sm justify-between h-16 items-center">
+    <div className="absolute top-0 left-0 flex w-full bg-white shadow-sm justify-between h-16 items-center">
       <div className="pl-2"><i className="bi bi-search pr-3"></i>Search</div>
       <div className="flex relative">
         <button type="button" className="mx-4 my-auto rounded-full flex items-center" onClick={()=> setOpen(!open)}>

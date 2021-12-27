@@ -17,7 +17,6 @@ const Dashboard = () => {
       console.log(errorMessage);
     }
   }, [isError]);
-  console.log(process.env.REACT_APP_API_URL)
   return (
     <div className="flex justify-center items-center h-full">
       {isFetching ? <Loader /> : <div><h1 className="sm:text-3xl text-xl break-words text-gray-900">Welcome back {data.name} !</h1></div>}

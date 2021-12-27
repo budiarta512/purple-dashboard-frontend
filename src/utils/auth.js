@@ -1,7 +1,6 @@
 
-const login = (token, user) => {
+const login = (token) => {
   localStorage.setItem('token', token);
-  localStorage.setItem('user', JSON.stringify(user));
 }
 const logout = () => {
   localStorage.clear();

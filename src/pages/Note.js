@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import { withRouter } from 'react-router-dom';
 import api from '../utils/api';
-import NoteComponent from '../component/NoteComponent';
-import CreateNoteComponent from '../component/CreateNoteComponent';
+import NoteComponent from '../component/NoteComponents/NoteComponent';
+import CreateNoteComponent from '../component/NoteComponents/CreateNoteComponent';
 import Loader from '../component/Loader';
 
 const Note = () => {
@@ -18,7 +18,6 @@ const Note = () => {
     setLoading(true);
     api().get('/api/note', { headers: { Authorization: 'Bearer ' + localStorage.getItem('token')} })
       .then(res => {
-        console.log(res)
         setResponse(res.data.data)
         setLoading(false);
         setSelected(res.data.data);
@@ -63,7 +62,6 @@ const Note = () => {
         </div>
       </div>
       }
-      
      {/*  create Note Modal  */}
       <div className={!open
       ? "hidden fixed bg-transparent inset-0"

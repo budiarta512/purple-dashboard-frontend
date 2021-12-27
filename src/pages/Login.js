@@ -17,7 +17,6 @@ const Login = () => {
 
   useEffect(()=> {
     return ()=> {
-      console.log('effect')
       dispatch(clearState())
     }
   }, [])

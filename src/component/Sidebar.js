@@ -3,24 +3,26 @@ import { useDispatch } from 'react-redux';
 import { NavLink, useHistory, useLocation } from 'react-router-dom';
 import { logoutUser } from '../features/user/userSlice';
 
-function Sidebar() {
+function Sidebar(props) {
   const history = useHistory();
   const dispatch = useDispatch();
   const logoutHandle = (e) => {
     dispatch(logoutUser({token: localStorage.getItem('token')}))
       .then(res => {
         localStorage.removeItem('token');
-        localStorage.removeItem('user');
         history.go(0);
       });
   }
+  const sidebarHandle = () => {
+    props.setOpenSidebar(!props.openSidebar);
+  }
   const location = useLocation();
   return (
-    <div className="bg-white h-screen lg:w-1/5 md:w-1/4 w-16 overflow-hidden">
+    <div className={`absolute bg-white h-screen overflow-hidden transition-all left-0 top-0 ${!props.openSidebar ? 'w-16' : 'sm:w-1/4 w-1/2'}`}>
       <div className="bg-white text-gray-600 overflow-hidden h-16 w-full flex items-center">
-        <div className="w-16 h-full flex items-center justify-center">
+        <button type="button" onClick={sidebarHandle} className="w-16 h-full flex items-center justify-center cursor-pointer">
           <i className="bi bi-list p-6"></i>
-        </div>
+        </button>
         <NavLink to='/'>
           <span className="text-purple-900">Purple Dashboard</span>
         </NavLink>

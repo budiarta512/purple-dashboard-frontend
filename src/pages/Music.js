@@ -48,8 +48,8 @@ const Music = () => {
 
   // search
   useEffect(()=> {
-    if(!search) return setSearchResult([]);
     if(!accessToken) return;
+    if(!search) return setSearchResult([]);
     let cancel = false;
     axios.get(' https://api.spotify.com/v1/search/?type=track&q=' + search, {headers: {Authorization: `Bearer ${accessToken}`}})
       .then(res => {
@@ -83,11 +83,10 @@ const Music = () => {
 
   // get user current playlist
   useEffect(() => {
-    setLoading(true);
     if(!accessToken) return;
+    setLoading(true);
     axios.get('https://api.spotify.com/v1/me/playlists', {headers: {Authorization : `Bearer ${accessToken}`}})
       .then(res => {
-        console.log(res)
         setPlayList(res.data.items[0]);
         setLoading(false);
       })
@@ -102,7 +101,6 @@ const Music = () => {
     if(!userId) return;
     axios.post('https://api.spotify.com/v1/users/'+ userId +'/playlists', {name: 'new playlist', description: 'new playlist description', public: false}, {headers: {Authorization : `Bearer ${accessToken}`}})
       .then(res => {
-        console.log(res);
         setRefresh(old => old + 1);
       })
       .catch(err => {
@@ -112,6 +110,7 @@ const Music = () => {
 
   // get track
   useEffect(()=> {
+    if(!accessToken) return;
     if(!playlist) return;
     axios.get("https://api.spotify.com/v1/playlists/"+ playlist.id +"/tracks", {headers: {Authorization : `Bearer ${accessToken}`}})
       .then(res => {
@@ -127,7 +126,6 @@ const Music = () => {
     if(!playlist) return;
     axios.post(`https://api.spotify.com/v1/playlists/${playlist.id}/tracks`, {uris: [uri], position: 0}, {headers: {Authorization : `Bearer ${accessToken}`}})
       .then(res => {
-        console.log(res)
         setRefresh(old => old + 1);
       })
       .catch(err => {
@@ -137,7 +135,6 @@ const Music = () => {
   // delete track from playlist
   const deleteTrack = (uri, index)=> {
     if(!playlist) return;
-    console.log(accessToken)
     axios.delete(`https://api.spotify.com/v1/playlists/${playlist.id}/tracks`, {data: {tracks: [{uri}]}, headers: {Authorization: `Bearer ` + accessToken}})
       .then(res => {
         console.log(res)

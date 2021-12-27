@@ -9,7 +9,7 @@ export const loginUser = createAsyncThunk(
     try{
       const response = await api().post('/api/login', {email, password});
       if(response.status === 200) {
-        login(response.data.data.token, response.data.data.user);
+        login(response.data.data.token);
         return response.data;
       } else {
         return thunkAPI.rejectWithValue(response);

@@ -9,7 +9,6 @@ export default function useSpotifyAuth (code) {
   const history = useHistory();
   
   useEffect(()=> {
-    console.log('useEffect 1')
     api().post('/api/music', {code}, {headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}})
       .then(res => {
         console.log(res.data.data.scope);
@@ -27,7 +26,6 @@ export default function useSpotifyAuth (code) {
   useEffect(()=> {
     if(!refreshToken || !ExpiresIn) return;
     const interval = setInterval(()=> {
-      console.log('useEffect 2');
       api().post('/api/refresh', {refreshToken: refreshToken}, {headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}})
       .then(res => {
         console.log("data refresh token : " + res.data.data)

@@ -15,7 +15,6 @@ const Register = () => {
     setLoading(true);
     api().post('/api/register', {name, telp, email, password})
       .then(res => {
-        console.log(res);
         setLoading(false);
         history.push('/login')
       })

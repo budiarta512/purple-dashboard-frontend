@@ -1,23 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Note from './pages/Note';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import axios from 'axios';
 import Sidebar from './component/Sidebar';
 import { isLogin } from './utils/auth';
 import PrivateRoute from './utils/PrivateRoute';
 import { UserProvider } from './context/UserContext';
 import NavbarComponent from './component/NavbarComponent';
-import UpdateNoteComponent from './component/UpdateNoteComponent';
+import UpdateNoteComponent from './component/NoteComponents/UpdateNoteComponent';
 import Music from './pages/Music';
+import './App.css';
 
 function App() {
-  // axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
-  // axios.defaults.headers.common['Access-Control-Allow-Headers'] = '*';
-  // axios.defaults.headers.common["Authorization"] = "Bearer " + localStorage.getItem("token");
-  
+  const [openSidebar, setOpenSidebar] = useState(false);
   return (
     <div className="App">
       <Router>
@@ -37,14 +34,14 @@ function App() {
           </Switch>
           ) : 
           (
-            <div className="flex min-h-screen overflow-hidden">
+            <div className="min-h-screen overflow-hidden">
               {/* Sidebar */}
-              <Sidebar />
-              <div className="bg-gradient-to-bl from-red-50 to-purple-100 w-screen h-screen">
+              <Sidebar setOpenSidebar={setOpenSidebar} openSidebar={openSidebar} />
+              <div className={`absolute bg-gradient-to-bl from-red-50 to-purple-100 h-screen right-0 top-0 transition-all overflow-hidden ${!openSidebar ? 'open-width' : 'sm:w-3/4 w-1/2'}`}>
                 {/* Navbar */}
                 <NavbarComponent />
                 {/* Content */}
-                <div className="h-full ">
+                <div className="h-full w-full sm:pt-14 pt-20">
                   <Switch>
                     <Route path='/login'>
                     {!isLogin() ? <Login /> : <Redirect to='/' />}

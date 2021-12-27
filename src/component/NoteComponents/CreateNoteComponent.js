@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
 import { useSelector } from 'react-redux';
-import { userSelector } from '../features/user/userSlice';
-import api from '../utils/api';
-import GreenAlertComponent from './GreenAlertComponent';
+import { userSelector } from '../../features/user/userSlice';
+import api from '../../utils/api';
 
 
 const CreateNoteComponent = (props) => {
@@ -12,7 +11,6 @@ const CreateNoteComponent = (props) => {
   const [category, setCategory] = useState('personal');
   const [body, setBody] = useState('');
   const [message, setMessage] = useState([]);
-  const [response, setResponse] = useState([]);
   const [spiner, setSpiner] = useState(false);
   const user_id = data.id;
 
@@ -20,10 +18,9 @@ const CreateNoteComponent = (props) => {
     setSpiner(true)
     api().post('/api/note', {title, category, body, user_id}, {headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}})
       .then(res=> {
-          setResponse(res.data);
           setTitle('');
           setBody('');
-          setSpiner(true);
+          setSpiner(false);
           props.setOpen(!props.open);
           props.setRefresh((old)=> old + 1);
       })
@@ -33,16 +30,8 @@ const CreateNoteComponent = (props) => {
         }
       })
   }
-  if(response.message) {
-    setTimeout(()=> {
-      setResponse([]);
-    }, 3000)
-  }
   return (
     <div className="w-5/6 h-auto bg-indigo-300 shadow-xl rounded-md px-4 border-t border-l border-white">
-      {/* success alert */}
-      {response.message && <GreenAlertComponent message={response.message} />}
-      
       <div className="flex justify-end">
         <button type="button" className="mt-1 mr-1" onClick={()=> props.setOpen(!props.open)}><i className="bi bi-x-circle-fill text-2xl text-purple-700"></i></button>
       </div>
