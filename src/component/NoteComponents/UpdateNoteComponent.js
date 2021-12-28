@@ -44,6 +44,7 @@ const UpdateNoteComponent = () => {
       })
       .catch(error => {
         setMessage(error.response.data.message)
+        setSpiner(false);
       });
   }
   return (

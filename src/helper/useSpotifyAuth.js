@@ -9,6 +9,7 @@ export default function useSpotifyAuth (code) {
   const history = useHistory();
   
   useEffect(()=> {
+    if(!code) return;
     api().post('/api/music', {code}, {headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}})
       .then(res => {
         console.log(res.data.data.scope);

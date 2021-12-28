@@ -6,7 +6,7 @@ function Player(props) {
     props.setPlay(param)
   }
   return (
-    <div className="bg-gray-400 mb-16 w-full"> 
+    <div className="w-full"> 
         <SpotifyWebPlayer
           token={props.accessToken}
           showSaveIcon
@@ -15,6 +15,7 @@ function Player(props) {
           callback={(state => {
             if(!state.isPlaying) change(false);
             if(props.play) state.progressMs = props.playedSong
+            if(state.error) alert(state.error);
           })}
           offset={props.playedSong}
           uris={props.tracks ? props.tracks.map(track => track.track.uri) : []}

@@ -28,7 +28,7 @@ function NoteComponent(props) {
           <div className="mb-1">
             <h3 className="font-medium">{props.title}</h3>
           </div>
-          <div className="overflow-hidden relative h-56">
+          <div className="overflow-hidden relative h-52">
             <div className="absolute bg-gradient-to-t from-indigo-300 to-transparent pointer-events-none bottom-0 left-0 right-0 top-16"></div>
             <p className="">{props.body}</p>
           </div>
